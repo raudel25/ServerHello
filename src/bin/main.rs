@@ -6,11 +6,10 @@ extern crate serverhello;
 use serverhello::ThreadPool;
 
 fn main() {
+    println!("Running server ---> 127.0.0.1:7878");
+
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
-    let pool = ThreadPool::new(4).unwrap_or_else(|err| {
-        eprintln!("Error: {}", err);
-        std::process::exit(1);
-    });
+    let pool = ThreadPool::new(4);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
